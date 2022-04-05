@@ -20,6 +20,8 @@ export interface NftCreateData {
     symbol: string;
     templateIndex: number;
     tokenURI: string;
+    transferable: boolean;
+    owner: string;
 }
 /**
  * Provides an interface for NFT Factory contract
