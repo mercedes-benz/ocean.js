@@ -84,7 +84,8 @@ export class FixedRateExchange {
       fixedRateExchangeAbi || (defaultFixedRateExchangeAbi.abi as AbiItem[])
     this.oceanAddress = oceanAddress
     this.fixedRateAddress = fixedRateAddress
-    console.log('contract FRE config ', this.config)
+    console.log('contract FRE config ')
+    console.log(this.config)
     this.contract = setContractDefaults(
       new this.web3.eth.Contract(this.fixedRateExchangeAbi, this.fixedRateAddress),
       this.config
@@ -576,10 +577,10 @@ export class FixedRateExchange {
   ): Promise<PriceAndFees> {
     const fixedRateExchange = await this.getExchange(exchangeId)
     console.log(
-      'contract calcBaseInGivenOutDT config ',
-      this.contract.transactionBlockTimeout,
-      this.contract.transactionConfirmationBlocks,
-      this.contract.transactionPollingTimeout
+      `contract calcBaseInGivenOutDT config ${this.contract?.transactionBlockTimeout} , ${this.contract?.transactionConfirmationBlocks} , ${this.contract?.transactionPollingTimeout}`
+    )
+    LoggerInstance.log(
+      `contract calcBaseInGivenOutDT config log : ${this.contract?.transactionBlockTimeout} , ${this.contract?.transactionConfirmationBlocks} , ${this.contract?.transactionPollingTimeout}`
     )
     const result = await this.contract.methods
       .calcBaseInGivenOutDT(
