@@ -21,11 +21,24 @@ export function setContractDefaults(contract: Contract, config: Config): Contrac
     if (config.transactionPollingTimeout)
       contract.transactionPollingTimeout = config.transactionPollingTimeout
   }
+  console.log(
+    'contract config ',
+    config.transactionBlockTimeout,
+    config.transactionConfirmationBlocks,
+    config.transactionPollingTimeout
+  )
+  console.log(
+    'contract value ',
+    contract.transactionBlockTimeout,
+    contract.transactionConfirmationBlocks,
+    contract.transactionPollingTimeout
+  )
   return contract
 }
 
 export async function getFairGasPrice(web3: Web3, config: Config): Promise<string> {
   const x = new BigNumber(await web3.eth.getGasPrice())
+  console.log('getFairGasPrice ', config?.gasFeeMultiplier)
   if (config && config.gasFeeMultiplier)
     return x
       .multipliedBy(config.gasFeeMultiplier)
