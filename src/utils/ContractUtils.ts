@@ -21,12 +21,10 @@ export function setContractDefaults(contract: Contract, config: Config): Contrac
     if (config.transactionPollingTimeout)
       contract.transactionPollingTimeout = config.transactionPollingTimeout
   }
-  console.log(
-    `contract config ${config?.transactionBlockTimeout} , ${config?.transactionConfirmationBlocks} , ${config?.transactionPollingTimeout}`
-  )
-  console.log(
-    `contract value ${contract?.transactionBlockTimeout} , ${contract?.transactionConfirmationBlocks} , ${contract?.transactionPollingTimeout}`
-  )
+  const contractConfig = `contract config ${config?.transactionBlockTimeout} , ${config?.transactionConfirmationBlocks} , ${config?.transactionPollingTimeout}`
+  console.log(contractConfig)
+  const contractValue = `contract value ${contract?.transactionBlockTimeout} , ${contract?.transactionConfirmationBlocks} , ${contract?.transactionPollingTimeout}`
+  console.log(contractValue)
   return contract
 }
 
