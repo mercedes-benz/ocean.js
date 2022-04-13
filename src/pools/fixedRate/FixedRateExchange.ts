@@ -576,9 +576,11 @@ export class FixedRateExchange {
     consumeMarketFee: string = '0'
   ): Promise<PriceAndFees> {
     const fixedRateExchange = await this.getExchange(exchangeId)
+    const configValue = `${this.contract?.transactionBlockTimeout} , ${this.contract?.transactionConfirmationBlocks} , ${this.contract?.transactionPollingTimeout}`
     console.log(
       `contract calcBaseInGivenOutDT config ${this.contract?.transactionBlockTimeout} , ${this.contract?.transactionConfirmationBlocks} , ${this.contract?.transactionPollingTimeout}`
     )
+    console.log('contractConfig: ', configValue)
     LoggerInstance.log(
       `contract calcBaseInGivenOutDT config log : ${this.contract?.transactionBlockTimeout} , ${this.contract?.transactionConfirmationBlocks} , ${this.contract?.transactionPollingTimeout}`
     )
