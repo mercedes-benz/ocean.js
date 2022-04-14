@@ -208,8 +208,7 @@ export class Datatoken {
 
     const gasLimitDefault = this.GASLIMIT_DEFAULT
 
-    if (!fixedRateParams.allowedConsumer)
-      fixedRateParams.allowedConsumer = '0x0000000000000000000000000000000000000000'
+    if (!fixedRateParams.allowedConsumer) fixedRateParams.allowedConsumer = ZERO_ADDRESS
     const withMint = fixedRateParams.withMint ? 1 : 0
 
     let estGas
@@ -259,8 +258,7 @@ export class Datatoken {
     if (!(await this.isERC20Deployer(dtAddress, address))) {
       throw new Error(`User is not ERC20 Deployer`)
     }
-    if (!fixedRateParams.allowedConsumer)
-      fixedRateParams.allowedConsumer = '0x0000000000000000000000000000000000000000'
+    if (!fixedRateParams.allowedConsumer) fixedRateParams.allowedConsumer = ZERO_ADDRESS
 
     const withMint = fixedRateParams.withMint ? 1 : 0
 
@@ -322,8 +320,7 @@ export class Datatoken {
         this.config
       )
 
-    if (!dispenserParams.allowedSwapper)
-      dispenserParams.allowedSwapper = '0x0000000000000000000000000000000000000000'
+    if (!dispenserParams.allowedSwapper) dispenserParams.allowedSwapper = ZERO_ADDRESS
 
     if (!dispenserParams.withMint) dispenserParams.withMint = false
 
@@ -369,8 +366,7 @@ export class Datatoken {
       this.config
     )
 
-    if (!dispenserParams.allowedSwapper)
-      dispenserParams.allowedSwapper = '0x0000000000000000000000000000000000000000'
+    if (!dispenserParams.allowedSwapper) dispenserParams.allowedSwapper = ZERO_ADDRESS
 
     if (!dispenserParams.withMint) dispenserParams.withMint = false
 
@@ -985,8 +981,8 @@ export class Datatoken {
 
     if (!consumeMarketFee) {
       consumeMarketFee = {
-        consumeMarketFeeAddress: '0x0000000000000000000000000000000000000000',
-        consumeMarketFeeToken: '0x0000000000000000000000000000000000000000',
+        consumeMarketFeeAddress: ZERO_ADDRESS,
+        consumeMarketFeeToken: ZERO_ADDRESS,
         consumeMarketFeeAmount: '0'
       }
     }
@@ -1119,7 +1115,10 @@ export class Datatoken {
     orderParams: OrderParams,
     freParams: FreOrderParams
   ): Promise<TransactionReceipt> {
-    const dtContract = new this.web3.eth.Contract(this.datatokensEnterpriseAbi, dtAddress)
+    const dtContract = setContractDefaults(
+      new this.web3.eth.Contract(this.datatokensEnterpriseAbi, dtAddress),
+      this.config
+    )
     try {
       const freContractParams = getFreOrderParams(freParams)
 
@@ -1190,7 +1189,10 @@ export class Datatoken {
     orderParams: OrderParams,
     dispenserContract: string
   ): Promise<TransactionReceipt> {
-    const dtContract = new this.web3.eth.Contract(this.datatokensEnterpriseAbi, dtAddress)
+    const dtContract = setContractDefaults(
+      new this.web3.eth.Contract(this.datatokensEnterpriseAbi, dtAddress),
+      this.config
+    )
     try {
       const estGas = await this.estGasBuyFromDispenserAndOrder(
         dtAddress,
@@ -1416,9 +1418,12 @@ export class Datatoken {
    * @return {Promise<String>} balance  Number of datatokens. Will be converted from wei
    */
   public async balance(datatokenAddress: string, address: string): Promise<string> {
-    const dtContract = new this.web3.eth.Contract(this.datatokensAbi, datatokenAddress, {
-      from: address
-    })
+    const dtContract = setContractDefaults(
+      new this.web3.eth.Contract(this.datatokensAbi, datatokenAddress, {
+        from: address
+      }),
+      this.config
+    )
     const balance = await dtContract.methods.balanceOf(address).call()
     return this.web3.utils.fromWei(balance)
   }
