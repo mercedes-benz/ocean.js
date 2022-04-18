@@ -1,5 +1,5 @@
 import Web3 from 'web3'
-import { LoggerInstance, getData, downloadFile, downloadFileBrowser } from '../utils'
+import { LoggerInstance, getData } from '../utils'
 import {
   FileMetadata,
   ComputeJob,
@@ -10,9 +10,7 @@ import {
   ProviderInitialize
 } from '../@types/'
 import { noZeroX } from '../utils/ConversionTypeHelper'
-import { signText, signWithHash } from '../utils/SignatureUtils'
 import fetch from 'cross-fetch'
-import { DownloadResponse } from '../@types/DownloadResponse'
 export interface HttpCallback {
   (httpMethod: string, url: string, body: string, header: any): Promise<any>
 }
@@ -107,22 +105,21 @@ export class Provider {
     }
   }
 
-  public async createSignature(
+  public async signProviderRequest(
     web3: Web3,
     accountId: string,
-    agreementId: string
+    message: string,
+    password?: string
   ): Promise<string> {
-    const signature = await signText(web3, noZeroX(agreementId), accountId)
-    return signature
-  }
-
-  public async createHashSignature(
-    web3: Web3,
-    accountId: string,
-    message: string
-  ): Promise<string> {
-    const signature = await signWithHash(web3, message, accountId)
-    return signature
+    const consumerMessage = web3.utils.soliditySha3({
+      t: 'bytes',
+      v: web3.utils.utf8ToHex(message)
+    })
+    const isMetaMask =
+      web3 && web3.currentProvider && (web3.currentProvider as any).isMetaMask
+    if (isMetaMask)
+      return await web3.eth.personal.sign(consumerMessage, accountId, password)
+    else return await web3.eth.sign(consumerMessage, accountId)
   }
 
   /** Encrypt data using the Provider's own symmetric key
@@ -360,8 +357,7 @@ export class Provider {
       : null
     if (!downloadUrl) return null
     const nonce = Date.now()
-    const signature = await this.createSignature(web3, accountId, did + nonce)
-
+    const signature = await this.signProviderRequest(web3, accountId, did + nonce)
     let consumeUrl = downloadUrl
     consumeUrl += `?fileIndex=${fileIndex}`
     consumeUrl += `&documentId=${did}`
@@ -410,12 +406,11 @@ export class Provider {
     let signatureMessage = consumerAddress
     signatureMessage += dataset.documentId
     signatureMessage += nonce
-    const signature = await this.createHashSignature(
+    const signature = await this.signProviderRequest(
       web3,
       consumerAddress,
       signatureMessage
     )
-
     const payload = Object()
     payload.consumerAddress = consumerAddress
     payload.signature = signature
@@ -440,7 +435,7 @@ export class Provider {
         const params = await response.json()
         return params
       }
-      console.error('Compute start failed:', response.status, response.statusText)
+      LoggerInstance.error('Compute start failed: ', response.status, response.statusText)
       LoggerInstance.error('Payload was:', payload)
       return null
     } catch (e) {
@@ -489,12 +484,11 @@ export class Provider {
     signatureMessage += jobId || ''
     signatureMessage += (did && `${noZeroX(did)}`) || ''
     signatureMessage += nonce
-    const signature = await this.createHashSignature(
+    const signature = await this.signProviderRequest(
       web3,
       consumerAddress,
       signatureMessage
     )
-
     const payload = Object()
     payload.signature = signature
     payload.documentId = noZeroX(did)
@@ -587,8 +581,7 @@ export class Provider {
    * @param {string} consumerAddress The consumer ethereum address
    * @param {string} jobId The ID of a compute job.
    * @param {number} index Result index
-   * @param {AbortSignal} signal Abort signal
-   * @return {Promise<ComputeJob | ComputeJob[]>}
+   * @return {Promise<string>}
    */
   public async getComputeResultUrl(
     providerUri: string,
@@ -608,27 +601,23 @@ export class Provider {
       ? this.getEndpointURL(serviceEndpoints, 'computeResult').urlPath
       : null
 
-    console.log('computeResult computeResultUrl: ', computeResultUrl)
     const nonce = Date.now()
     let signatureMessage = consumerAddress
     signatureMessage += jobId
     signatureMessage += index.toString()
     signatureMessage += nonce
-    const signature = await this.createHashSignature(
+    const signature = await this.signProviderRequest(
       web3,
       consumerAddress,
       signatureMessage
     )
-
+    if (!computeResultUrl) return null
     let resultUrl = computeResultUrl
     resultUrl += `?consumerAddress=${consumerAddress}`
     resultUrl += `&jobId=${jobId}`
     resultUrl += `&index=${index.toString()}`
     resultUrl += `&nonce=${nonce}`
     resultUrl += (signature && `&signature=${signature}`) || ''
-
-    console.log('computeResult resultUrl: ', resultUrl)
-    if (!resultUrl) return null
     return resultUrl
   }
 
@@ -670,12 +659,11 @@ export class Provider {
     signatureMessage += jobId || ''
     signatureMessage += (did && `${noZeroX(did)}`) || ''
     signatureMessage += nonce
-    const signature = await this.createHashSignature(
+    const signature = await this.signProviderRequest(
       web3,
       consumerAddress,
       signatureMessage
     )
-
     const payload = Object()
     payload.documentId = noZeroX(did)
     payload.consumerAddress = consumerAddress

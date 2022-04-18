@@ -33,8 +33,7 @@ export declare class Provider {
      * @return {Promise<string>} urlDetails
      */
     getNonce(providerUri: string, consumerAddress: string, signal?: AbortSignal, providerEndpoints?: any, serviceEndpoints?: ServiceEndpoint[]): Promise<string>;
-    createSignature(web3: Web3, accountId: string, agreementId: string): Promise<string>;
-    createHashSignature(web3: Web3, accountId: string, message: string): Promise<string>;
+    signProviderRequest(web3: Web3, accountId: string, message: string, password?: string): Promise<string>;
     /** Encrypt data using the Provider's own symmetric key
      * @param {string} data data in json format that needs to be sent , it can either be a DDO or a File array
      * @param {string} providerUri provider uri address
@@ -120,8 +119,7 @@ export declare class Provider {
      * @param {string} consumerAddress The consumer ethereum address
      * @param {string} jobId The ID of a compute job.
      * @param {number} index Result index
-     * @param {AbortSignal} signal Abort signal
-     * @return {Promise<ComputeJob | ComputeJob[]>}
+     * @return {Promise<string>}
      */
     getComputeResultUrl(providerUri: string, web3: Web3, consumerAddress: string, jobId: string, index: number): Promise<string>;
     /** Deletes a compute job.
