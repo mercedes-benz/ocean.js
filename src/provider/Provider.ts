@@ -591,10 +591,12 @@ export class Provider {
     index: number
   ): Promise<string> {
     const providerEndpoints = await this.getEndpoints(providerUri)
+    console.log('computeResult providerEndpoints: ', providerEndpoints)
     const serviceEndpoints = await this.getServiceEndpoints(
       providerUri,
       providerEndpoints
     )
+    console.log('computeResult serviceEndpoints: ', serviceEndpoints)
     const computeResultUrl = this.getEndpointURL(serviceEndpoints, 'computeResult')
       ? this.getEndpointURL(serviceEndpoints, 'computeResult').urlPath
       : null
