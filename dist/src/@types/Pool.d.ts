@@ -21,6 +21,8 @@ export interface TokenInOutMarket {
     tokenIn: string;
     tokenOut: string;
     marketFeeAddress: string;
+    tokenInDecimals?: number;
+    tokenOutDecimals?: number;
 }
 export interface AmountsInMaxFee {
     tokenAmountIn: string;

@@ -54,9 +54,9 @@ export declare class FixedRateExchange {
      * @param {any} web3
      * @param {any} fixedRateExchangeAbi
      */
-    constructor(web3: Web3, fixedRateAddress: string, fixedRateExchangeAbi?: AbiItem | AbiItem[], oceanAddress?: string, config?: Config);
-    amountToUnits(token: string, amount: string): Promise<string>;
-    unitsToAmount(token: string, amount: string): Promise<string>;
+    constructor(web3: Web3, fixedRateAddress: string, network?: string | number, fixedRateExchangeAbi?: AbiItem | AbiItem[], oceanAddress?: string, config?: Config);
+    amountToUnits(token: string, amount: string, tokenDecimals: number): Promise<string>;
+    unitsToAmount(token: string, amount: string, tokenDecimals: number): Promise<string>;
     /**
      * Creates unique exchange identifier.
      * @param {String} baseToken baseToken contract address

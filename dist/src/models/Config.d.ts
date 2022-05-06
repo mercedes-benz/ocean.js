@@ -1,6 +1,28 @@
 import { LogLevel } from '../utils/Logger';
 import { AbiItem } from 'web3-utils/types';
-export declare class Config {
+export declare class ContractConfig {
+    /**
+     * Specify the transaction Block Timeout
+     * @type {number}
+     */
+    transactionBlockTimeout: number;
+    /**
+     * Specify the transaction Confirmation Blocks
+     * @type {number}
+     */
+    transactionConfirmationBlocks: number;
+    /**
+     * Specify the transaction Polling Blocks Timeout
+     * @type {number}
+     */
+    transactionPollingTimeout: number;
+    /**
+     * Specify the multiplier for the gas fee
+     * @type {number}
+     */
+    gasFeeMultiplier: number;
+}
+export declare class Config extends ContractConfig {
     /**
      * Ethereum node URL.
      * @type {string}
@@ -142,25 +164,5 @@ export declare class Config {
      * @type {string}
      */
     oceanTokenSymbol: string;
-    /**
-     * Specify the transaction Block Timeout
-     * @type {number}
-     */
-    transactionBlockTimeout: number;
-    /**
-     * Specify the transaction Confirmation Blocks
-     * @type {number}
-     */
-    transactionConfirmationBlocks: number;
-    /**
-     * Specify the transaction Polling Blocks Timeout
-     * @type {number}
-     */
-    transactionPollingTimeout: number;
-    /**
-     * Specify the multiplier for the gas fee
-     * @type {number}
-     */
-    gasFeeMultiplier: number;
 }
 export default Config;

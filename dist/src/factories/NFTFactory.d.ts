@@ -39,7 +39,7 @@ export declare class NftFactory {
      * @param {AbiItem | AbiItem[]} factory721ABI
      * @param {Web3} web3
      */
-    constructor(factory721Address: string, web3: Web3, factory721Abi?: AbiItem | AbiItem[], config?: Config);
+    constructor(factory721Address: string, web3: Web3, network?: string | number, factory721Abi?: AbiItem | AbiItem[], config?: Config);
     /**
      * Get estimated gas cost for deployERC721Contract value
      * @param {String} address

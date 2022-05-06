@@ -38,7 +38,7 @@ export declare class Datatoken {
      * @param {AbiItem | AbiItem[]} datatokensAbi
      * @param {Web3} web3
      */
-    constructor(web3: Web3, datatokensAbi?: AbiItem | AbiItem[], datatokensEnterpriseAbi?: AbiItem | AbiItem[], config?: Config);
+    constructor(web3: Web3, network?: string | number, datatokensAbi?: AbiItem | AbiItem[], datatokensEnterpriseAbi?: AbiItem | AbiItem[], config?: Config);
     /**
      * Estimate gas cost for mint method
      * @param {String} dtAddress Datatoken address
@@ -261,6 +261,25 @@ export declare class Datatoken {
      * @return {Promise<TransactionReceipt>} string
      */
     startOrder(dtAddress: string, address: string, consumer: string, serviceIndex: number, providerFees: ProviderFees, consumeMarketFee?: ConsumeMarketFee): Promise<TransactionReceipt>;
+    /** Estimate gas cost for reuseOrder method
+     * @param {String} dtAddress Datatoken address
+     * @param {String} address User address which calls
+     * @param {String} orderTxId previous valid order
+     * @param {providerFees} providerFees provider fees
+     * @param {Contract} contractInstance optional contract instance
+     * @return {Promise<any>}
+     */
+    estGasReuseOrder(dtAddress: string, address: string, orderTxId: string, providerFees: ProviderFees, contractInstance?: Contract): Promise<any>;
+    /** Reuse Order: called by payer or consumer having a valid order, but with expired provider access.
+     * Pays the provider fee again, but it will not require a new datatoken payment
+     * Requires previous approval of provider fee.
+     * @param {String} dtAddress Datatoken address
+     * @param {String} address User address which calls
+     * @param {String} orderTxId previous valid order
+     * @param {providerFees} providerFees provider fees
+     * @return {Promise<TransactionReceipt>} string
+     */
+    reuseOrder(dtAddress: string, address: string, orderTxId: string, providerFees: ProviderFees): Promise<TransactionReceipt>;
     /** Estimate gas cost for buyFromFreAndOrder method
      * @param {String} dtAddress Datatoken address
      * @param {String} address User address which calls

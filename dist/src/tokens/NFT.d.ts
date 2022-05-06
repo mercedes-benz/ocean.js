@@ -22,7 +22,7 @@ export declare class Nft {
     web3: Web3;
     startBlock: number;
     config: Config;
-    constructor(web3: Web3, nftAbi?: AbiItem | AbiItem[], config?: Config);
+    constructor(web3: Web3, network?: string | number, nftAbi?: AbiItem | AbiItem[], config?: Config);
     /**
      *  Estimate gas cost for createERC20 token creation
      * @param {String} nftAddress ERC721 addreess

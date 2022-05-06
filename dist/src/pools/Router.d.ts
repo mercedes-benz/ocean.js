@@ -20,7 +20,7 @@ export declare class Router {
      * @param {AbiItem | AbiItem[]} Router
      * @param {Web3} web3
      */
-    constructor(routerAddress: string, web3: Web3, RouterAbi?: AbiItem | AbiItem[], config?: Config);
+    constructor(routerAddress: string, web3: Web3, network?: string | number, RouterAbi?: AbiItem | AbiItem[], config?: Config);
     /**
      * Estimate gas cost for buyDTBatch method
      * @param {String} address

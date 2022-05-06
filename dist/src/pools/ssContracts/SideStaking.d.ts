@@ -8,9 +8,9 @@ export declare class SideStaking {
     web3: Web3;
     GASLIMIT_DEFAULT: number;
     config: Config;
-    constructor(web3: Web3, ssAbi?: AbiItem | AbiItem[], config?: Config);
-    amountToUnits(token: string, amount: string): Promise<string>;
-    unitsToAmount(token: string, amount: string): Promise<string>;
+    constructor(web3: Web3, network?: string | number, ssAbi?: AbiItem | AbiItem[], config?: Config);
+    private sideStakingContract;
+    unitsToAmount(token: string, amount: string, tokenDecimals?: number): Promise<string>;
     /**
      * Get (total vesting amount + token released from the contract when adding liquidity)
      * @param {String} ssAddress side staking contract address
@@ -58,9 +58,10 @@ export declare class SideStaking {
      * Get dt balance in the staking contract available for being added as liquidity
      * @param {String} ssAddress side staking contract address
      * @param {String} datatokenAddress datatokenAddress
+     * @param {number} tokenDecimals optional number of decimals of the token
      * @return {String}
      */
-    getDatatokenBalance(ssAddress: string, datatokenAddress: string): Promise<string>;
+    getDatatokenBalance(ssAddress: string, datatokenAddress: string, tokenDecimals?: number): Promise<string>;
     /**
      * Get block when vesting ends
      * @param {String} ssAddress side staking contract address
@@ -72,9 +73,10 @@ export declare class SideStaking {
      * Get total amount vesting
      * @param {String} ssAddress side staking contract address
      * @param {String} datatokenAddress datatokenAddress
+     * @param {number} tokenDecimals optional number of decimals of the token
      * @return {String}
      */
-    getvestingAmount(ssAddress: string, datatokenAddress: string): Promise<string>;
+    getvestingAmount(ssAddress: string, datatokenAddress: string, tokenDecimals?: number): Promise<string>;
     /**
      * Get last block publisher got some vested tokens
      * @param {String} ssAddress side staking contract address
@@ -86,9 +88,10 @@ export declare class SideStaking {
      * Get how much has been taken from the vesting amount
      * @param {String} ssAddress side staking contract address
      * @param {String} datatokenAddress datatokenAddress
+     * @param {number} tokenDecimals optional number of decimals of the token
      * @return {String}
      */
-    getvestingAmountSoFar(ssAddress: string, datatokenAddress: string): Promise<string>;
+    getvestingAmountSoFar(ssAddress: string, datatokenAddress: string, tokenDecimals?: number): Promise<string>;
     /**
      * Estimate gas cost for getVesting
      * @param {String} account

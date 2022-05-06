@@ -26,7 +26,7 @@ export declare class Dispenser {
      * @param {String} dispenserAddress
      * @param {any} dispenserABI
      */
-    constructor(web3: Web3, dispenserAddress?: string, dispenserAbi?: AbiItem | AbiItem[], config?: Config);
+    constructor(web3: Web3, network?: string | number, dispenserAddress?: string, dispenserAbi?: AbiItem | AbiItem[], config?: Config);
     /**
      * Get information about a datatoken dispenser
      * @param {String} dtAddress

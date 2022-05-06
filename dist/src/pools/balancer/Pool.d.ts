@@ -12,7 +12,9 @@ export declare class Pool {
     web3: Web3;
     GASLIMIT_DEFAULT: number;
     private config;
-    constructor(web3: Web3, poolAbi?: AbiItem | AbiItem[], config?: Config);
+    constructor(web3: Web3, network?: string | number, poolAbi?: AbiItem | AbiItem[], config?: Config);
+    amountToUnits(token: string, amount: string, tokenDecimals?: number): Promise<string>;
+    unitsToAmount(token: string, amount: string, tokenDecimals?: number): Promise<string>;
     /**
      * Get user shares of pool tokens
      * @param {String} account
@@ -112,9 +114,10 @@ export declare class Pool {
      * Returns the current token reserve amount
      * @param {String} poolAddress
      * @param {String} token  Address of the token to be checked
+     * @param {number} tokenDecimals optional number of decimals of the token
      * @return {String}
      */
-    getReserve(poolAddress: string, token: string): Promise<string>;
+    getReserve(poolAddress: string, token: string, tokenDecimals?: number): Promise<string>;
     /**
      * Get if a pool is finalized
      * Returns true if pool is finalized
@@ -156,9 +159,10 @@ export declare class Pool {
      * Get Market Fees available to be collected for a specific token
      * @param {String} poolAddress
      * @param {String} token token we want to check fees
+     * @param {number} tokenDecimals optional number of decimals of the token
      * @return {String}
      */
-    getMarketFees(poolAddress: string, token: string): Promise<string>;
+    getMarketFees(poolAddress: string, token: string, tokenDecimals?: number): Promise<string>;
     /**
      * Get Community  Get the current amount of fees which can be withdrawned by the Market
      * @return {CurrentFees}
@@ -173,9 +177,10 @@ export declare class Pool {
      * Get Community Fees available to be collected for a specific token
      * @param {String} poolAddress
      * @param {String} token token we want to check fees
+     * @param {number} tokenDecimals optional number of decimals of the token
      * @return {String}
      */
-    getCommunityFees(poolAddress: string, token: string): Promise<string>;
+    getCommunityFees(poolAddress: string, token: string, tokenDecimals?: number): Promise<string>;
     /**
      * Estimate gas cost for collectOPF
      * @param {String} address
@@ -271,49 +276,6 @@ export declare class Pool {
      */
     swapExactAmountOut(account: string, poolAddress: string, tokenInOutMarket: TokenInOutMarket, amountsInOutMaxFee: AmountsOutMaxFee): Promise<TransactionReceipt>;
     /**
-     * Estimate gas cost for joinPool method
-     * @param {String} address
-     * @param {String} poolAddress
-     * @param {String} poolAmountOut expected number of pool shares that you will get
-     * @param {String[]} maxAmountsIn array with maxium amounts spent
-     * @param {Contract} contractInstance optional contract instance
-     * @return {Promise<number>}
-     */
-    estJoinPool(address: string, poolAddress: string, poolAmountOut: string, maxAmountsIn: string[], contractInstance?: Contract): Promise<number>;
-    /**
-     * Adds dual side liquidity to the pool (both datatoken and basetoken)
-     * This will pull some of each of the currently trading tokens in the pool,
-     * meaning you must have called approve for each token for this pool.
-     * These values are limited by the array of maxAmountsIn in the order of the pool tokens.
-     * @param {String} address
-     * @param {String} poolAddress
-     * @param {String} poolAmountOut expected number of pool shares that you will get
-     * @param {String[]} maxAmountsIn array with maxium amounts spent
-     * @return {TransactionReceipt}
-     */
-    joinPool(address: string, poolAddress: string, poolAmountOut: string, maxAmountsIn: string[]): Promise<TransactionReceipt>;
-    /**
-     * Estimate gas cost for exitPool
-     * @param {String} address
-     * @param {String} poolAddress
-   ``* @param {String} poolAmountIn amount of pool shares spent
-     * @param {String[]} minAmountsOut  aarray with minimum amount of tokens expected
-     * @param {Contract} contractInstance optional contract instance
-     * @return {Promise<number>}
-     */
-    estExitPool(address: string, poolAddress: string, poolAmountIn: string, minAmountsOut: string[], contractInstance?: Contract): Promise<number>;
-    /**
-     * Removes dual side liquidity from the pool (both datatoken and basetoken)
-     * Exit the pool, paying poolAmountIn pool tokens and getting some of each of the currently trading tokens in return.
-     * These values are limited by the array of minAmountsOut in the order of the pool tokens.
-     * @param {String} account
-     * @param {String} poolAddress
-     * @param {String} poolAmountIn amount of pool shares spent
-     * @param {String[]} minAmountsOut array with minimum amount of tokens expected
-     * @return {TransactionReceipt}
-     */
-    exitPool(account: string, poolAddress: string, poolAmountIn: string, minAmountsOut: string[]): Promise<TransactionReceipt>;
-    /**
      * Estimate gas cost for joinswapExternAmountIn
      * @param {String} address
      * @param {String} poolAddress
@@ -373,41 +335,53 @@ export declare class Pool {
      * @param tokenOut token to get
      * @param tokenAmountOut exact amount of tokenOut
      * @param swapMarketFee consume market swap fee
+     * @param {number} tokenInDecimals optional number of decimals of the token to be swaped
+     * @param {number} tokenOutDecimals optional number of decimals of the token to get
      */
-    getAmountInExactOut(poolAddress: string, tokenIn: string, tokenOut: string, tokenAmountOut: string, swapMarketFee: string): Promise<PoolPriceAndFees>;
+    getAmountInExactOut(poolAddress: string, tokenIn: string, tokenOut: string, tokenAmountOut: string, swapMarketFee: string, tokenInDecimals?: number, tokenOutDecimals?: number): Promise<PoolPriceAndFees>;
     /**
      *  How many tokensOut you will get for a exact tokenAmountIn
      *  Returns: tokenAmountOut, LPFee, opcFee ,  publishMarketSwapFee, consumeMarketSwapFee
      * @param tokenIn token to be swaped
      * @param tokenOut token to get
-     * @param tokenAmountOut exact amount of tokenOut
-     * @param _consumeMarketSwapFee consume market swap fee
+     * @param tokenAmountIn exact amount of tokenIn
+     * @param swapMarketFee
+     * @param {number} tokenInDecimals optional number of decimals of the token to be swaped
+     * @param {number} tokenOutDecimals optional number of decimals of the token to get
      */
-    getAmountOutExactIn(poolAddress: string, tokenIn: string, tokenOut: string, tokenAmountIn: string, swapMarketFee: string): Promise<PoolPriceAndFees>;
+    getAmountOutExactIn(poolAddress: string, tokenIn: string, tokenOut: string, tokenAmountIn: string, swapMarketFee: string, tokenInDecimals?: number, tokenOutDecimals?: number): Promise<PoolPriceAndFees>;
     /**
      * Returns number of poolshares obtain by staking exact tokenAmountIn tokens
      * @param tokenIn tokenIn
      * @param tokenAmountIn exact number of tokens staked
+     * @param {number} poolDecimals optional number of decimals of the poool
+     * @param {number} tokenInDecimals optional number of decimals of the token
      */
-    calcPoolOutGivenSingleIn(poolAddress: string, tokenIn: string, tokenAmountIn: string): Promise<string>;
+    calcPoolOutGivenSingleIn(poolAddress: string, tokenIn: string, tokenAmountIn: string, poolDecimals?: number, tokenInDecimals?: number): Promise<string>;
     /**
      * Returns number of tokens to be staked to the pool in order to get an exact number of poolshares
      * @param tokenIn tokenIn
      * @param poolAmountOut expected amount of pool shares
+     * @param {number} poolDecimals optional number of decimals of the pool
+     * @param {number} tokenInDecimals optional number of decimals of the token
      */
-    calcSingleInGivenPoolOut(poolAddress: string, tokenIn: string, poolAmountOut: string): Promise<string>;
+    calcSingleInGivenPoolOut(poolAddress: string, tokenIn: string, poolAmountOut: string, poolDecimals?: number, tokenInDecimals?: number): Promise<string>;
     /**
      * Returns expected amount of tokenOut for removing exact poolAmountIn pool shares from the pool
      * @param tokenOut tokenOut
      * @param poolAmountIn amount of shares spent
+     * @param {number} poolDecimals optional number of decimals of the pool
+     * @param {number} tokenOutDecimals optional number of decimals of the token
      */
-    calcSingleOutGivenPoolIn(poolAddress: string, tokenOut: string, poolAmountIn: string): Promise<string>;
+    calcSingleOutGivenPoolIn(poolAddress: string, tokenOut: string, poolAmountIn: string, poolDecimals?: number, tokenOutDecimals?: number): Promise<string>;
     /**
      * Returns number of poolshares needed to withdraw exact tokenAmountOut tokens
      * @param tokenOut tokenOut
      * @param tokenAmountOut expected amount of tokensOut
+     * @param {number} poolDecimals optional number of decimals of the pool
+     * @param {number} tokenOutDecimals optional number of decimals of the token
      */
-    calcPoolInGivenSingleOut(poolAddress: string, tokenOut: string, tokenAmountOut: string): Promise<string>;
+    calcPoolInGivenSingleOut(poolAddress: string, tokenOut: string, tokenAmountOut: string, poolDecimals?: number, tokenOutDecimals?: number): Promise<string>;
     /**
      * Get LOG_SWAP encoded topic
      * @return {String}
