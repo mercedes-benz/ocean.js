@@ -14,3 +14,12 @@ export interface ProviderInitialize {
     computeAddress: string;
     providerFee: ProviderFees;
 }
+export interface ProviderComputeInitialize {
+    datatoken?: string;
+    validOrder?: string;
+    providerFee?: ProviderFees;
+}
+export interface ProviderComputeInitializeResults {
+    algorithm?: ProviderComputeInitialize;
+    datasets?: ProviderComputeInitialize[];
+}

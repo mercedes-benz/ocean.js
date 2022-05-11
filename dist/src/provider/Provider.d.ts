@@ -1,5 +1,5 @@
 import Web3 from 'web3';
-import { FileMetadata, ComputeJob, ComputeOutput, ComputeAlgorithm, ComputeAsset, ComputeEnvironment, ProviderInitialize } from '../@types/';
+import { FileMetadata, ComputeJob, ComputeOutput, ComputeAlgorithm, ComputeAsset, ComputeEnvironment, ProviderInitialize, ProviderComputeInitializeResults } from '../@types/';
 export interface HttpCallback {
     (httpMethod: string, url: string, body: string, header: any): Promise<any>;
 }
@@ -71,6 +71,17 @@ export declare class Provider {
      * @return {Promise<ProviderInitialize>} ProviderInitialize data
      */
     initialize(did: string, serviceId: string, fileIndex: number, consumerAddress: string, providerUri: string, signal?: AbortSignal, userCustomParameters?: UserCustomParameters, computeEnv?: string, validUntil?: number): Promise<ProviderInitialize>;
+    /** Initialize a compute request.
+     * @param {ComputeAsset} assets
+     * @param {ComputeAlgorithmber} algorithm
+     * @param {string} computeEnv
+     * @param {number} validUntil
+     * @param {string} providerUri Identifier of the asset to be registered in ocean
+     * @param {string} accountId
+     * @param {AbortSignal} signal abort signal
+     * @return {Promise<ProviderComputeInitialize>} ProviderComputeInitialize data
+     */
+    initializeCompute(assets: ComputeAsset[], algorithm: ComputeAlgorithm, computeEnv: string, validUntil: number, providerUri: string, accountId: string, signal?: AbortSignal): Promise<ProviderComputeInitializeResults>;
     /** Gets fully signed URL for download
      * @param {string} did
      * @param {string} accountId

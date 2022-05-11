@@ -294,9 +294,10 @@ export declare class Pool {
      * @param {String} poolAddress
      * @param {String} tokenAmountIn exact number of base tokens to spend
      * @param {String} minPoolAmountOut minimum of pool shares expectex
+     * @param {number} tokenInDecimals optional number of decimals of the token
      * @return {TransactionReceipt}
      */
-    joinswapExternAmountIn(account: string, poolAddress: string, tokenAmountIn: string, minPoolAmountOut: string): Promise<TransactionReceipt>;
+    joinswapExternAmountIn(account: string, poolAddress: string, tokenAmountIn: string, minPoolAmountOut: string, tokenInDecimals?: number): Promise<TransactionReceipt>;
     /**
      * Estimate gas cost for exitswapPoolAmountIn
      * @param {String} address
@@ -315,9 +316,10 @@ export declare class Pool {
      * @param {String} poolAddress
      * @param {String} poolAmountIn exact number of pool shares to spend
      * @param {String} minTokenAmountOut minimum amount of basetokens expected
+     * @param {number} poolDecimals optional number of decimals of the poool
      * @return {TransactionReceipt}
      */
-    exitswapPoolAmountIn(account: string, poolAddress: string, poolAmountIn: string, minTokenAmountOut: string): Promise<TransactionReceipt>;
+    exitswapPoolAmountIn(account: string, poolAddress: string, poolAmountIn: string, minTokenAmountOut: string, poolDecimals?: number): Promise<TransactionReceipt>;
     /**
      * Return the spot price of swapping tokenIn to tokenOut
      * @param {String} poolAddress
