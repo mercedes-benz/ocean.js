@@ -782,9 +782,12 @@ export class NftFactory {
       estGas = await this.factory721.methods
         .createNftWithErc20WithFixedRate(nftCreateData, ercCreateData, fixedData)
         .estimateGas({ from: address }, (err, estGas) => (err ? gasLimitDefault : estGas))
+      console.log('estGasCreateNftErc20WithFixedRate ercCreateData', ercCreateData)
+      console.log('estGasCreateNftErc20WithFixedRate fixedData', fixedData)
     } catch (e) {
       estGas = gasLimitDefault
     }
+    console.log('estGasCreateNftErc20WithFixedRate', estGas)
     return estGas
   }
 
@@ -813,7 +816,7 @@ export class NftFactory {
       ercParams,
       freParams
     )
-
+    console.log('createNftErc20WithFixedRate estGas + 1', estGas + 1)
     // Invoke createToken function of the contract
     const trxReceipt = await this.factory721.methods
       .createNftWithErc20WithFixedRate(nftCreateData, ercCreateData, fixedData)
