@@ -27,7 +27,6 @@ export interface NftCreateData {
  * Provides an interface for NFT Factory contract
  */
 export declare class NftFactory {
-    GASLIMIT_DEFAULT: number;
     factory721Address: string;
     factory721Abi: AbiItem | AbiItem[];
     web3: Web3;

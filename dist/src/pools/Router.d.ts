@@ -8,7 +8,6 @@ import { Config } from '../models/index.js';
  * Provides an interface for FactoryRouter contract
  */
 export declare class Router {
-    GASLIMIT_DEFAULT: number;
     routerAddress: string;
     RouterAbi: AbiItem | AbiItem[];
     web3: Web3;

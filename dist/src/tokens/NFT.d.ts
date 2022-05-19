@@ -15,7 +15,6 @@ interface Roles {
     store: boolean;
 }
 export declare class Nft {
-    GASLIMIT_DEFAULT: number;
     factory721Address: string;
     factory721Abi: AbiItem | AbiItem[];
     nftAbi: AbiItem | AbiItem[];

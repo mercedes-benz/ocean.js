@@ -10,7 +10,6 @@ import { Config } from '../../models';
 export declare class Pool {
     poolAbi: AbiItem | AbiItem[];
     web3: Web3;
-    GASLIMIT_DEFAULT: number;
     private config;
     constructor(web3: Web3, network?: string | number, poolAbi?: AbiItem | AbiItem[], config?: Config);
     amountToUnits(token: string, amount: string, tokenDecimals?: number): Promise<string>;
@@ -96,12 +95,6 @@ export declare class Pool {
      * @return {String}
      */
     getMarketFeeCollector(poolAddress: string): Promise<string>;
-    /**
-     * Get OPC Collector of this pool
-     * @param {String} poolAddress
-     * @return {String}
-     */
-    getOPCCollector(poolAddress: string): Promise<string>;
     /**
      * Get if a token is bounded to a pool
      *  Returns true if token is bound

@@ -39,7 +39,6 @@ export declare enum FixedRateCreateProgressStep {
     ApprovingDatatoken = 1
 }
 export declare class FixedRateExchange {
-    GASLIMIT_DEFAULT: number;
     /** Ocean related functions */
     oceanAddress: string;
     fixedRateAddress: string;
@@ -337,11 +336,6 @@ export declare class FixedRateExchange {
      * @return {Promise<TransactionReceipt>} transaction receipt
      */
     collectOceanFee(address: string, exchangeId: string): Promise<TransactionReceipt>;
-    /**
-     * Get OPF Collector of fixed rate contract
-     * @return {String}
-     */
-    getOPCCollector(): Promise<string>;
     /**
      * Get Router address set in fixed rate contract
      * @return {String}

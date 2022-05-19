@@ -14,7 +14,6 @@ export interface DispenserToken {
     allowedSwapper: string;
 }
 export declare class Dispenser {
-    GASLIMIT_DEFAULT: number;
     web3: Web3;
     dispenserAddress: string;
     config: Config;

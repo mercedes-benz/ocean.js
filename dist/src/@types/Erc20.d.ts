@@ -14,3 +14,8 @@ export interface ConsumeMarketFee {
     consumeMarketFeeToken: string;
     consumeMarketFeeAmount: string;
 }
+export interface PublishingMarketFee {
+    publishMarketFeeAddress: string;
+    publishMarketFeeToken: string;
+    publishMarketFeeAmount: string;
+}

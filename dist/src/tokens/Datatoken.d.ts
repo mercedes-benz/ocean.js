@@ -2,7 +2,7 @@ import Web3 from 'web3';
 import { AbiItem } from 'web3-utils';
 import { TransactionReceipt } from 'web3-eth';
 import { Contract } from 'web3-eth-contract';
-import { ConsumeMarketFee, FreOrderParams, FreCreationParams, ProviderFees } from '../@types';
+import { ConsumeMarketFee, FreOrderParams, FreCreationParams, ProviderFees, PublishingMarketFee } from '../@types';
 import { Nft } from './NFT';
 import { Config } from '../models/index.js';
 /**
@@ -25,7 +25,6 @@ export interface DispenserParams {
     allowedSwapper?: string;
 }
 export declare class Datatoken {
-    GASLIMIT_DEFAULT: number;
     factoryAddress: string;
     factoryABI: AbiItem | AbiItem[];
     datatokensAbi: AbiItem | AbiItem[];
@@ -380,5 +379,35 @@ export declare class Datatoken {
      * @return {Promise<String>} balance  Number of datatokens. Will be converted from wei
      */
     balance(datatokenAddress: string, address: string): Promise<string>;
+    /**
+     * @dev estGasSetPublishingMarketFee
+     *      Estimating gas for publishMarketFeeAddress method
+     * @param {string} datatokenAddress Datatoken adress
+     * @param {string} publishMarketFeeAddress  new publish Market Fee Address
+     * @param {string} publishMarketFeeToken new publish Market Fee Token
+     * @param {string} publishMarketFeeAmount new fee amount
+     * @param {String} address user adress
+     */
+    estGasSetPublishingMarketFee(datatokenAddress: string, publishMarketFeeAddress: string, publishMarketFeeToken: string, publishMarketFeeAmount: string, address: string): Promise<number>;
+    /**
+     * @dev setPublishingMarketFee
+     *      Only publishMarketFeeAddress can call it
+     *      This function allows to set the fee required by the publisherMarket
+     * @param {string} datatokenAddress Datatoken adress
+     * @param {string} publishMarketFeeAddress  new publish Market Fee Address
+     * @param {string} publishMarketFeeToken new publish Market Fee Token
+     * @param {string} publishMarketFeeAmount new fee amount
+     * @param {String} address user adress
+     */
+    setPublishingMarketFee(datatokenAddress: string, publishMarketFeeAddress: string, publishMarketFeeToken: string, publishMarketFeeAmount: string, address: string): Promise<void>;
+    /**
+     * @dev getPublishingMarketFee
+     *      Get publishingMarket Fee
+     *      This function allows to get the current fee set by the publishing market
+     * @param {String} datatokenAddress Datatoken adress
+     * @param {String} address user adress
+     * @return {Promise<PublishingMarketFee>} Current fee set by the publishing market
+     */
+    getPublishingMarketFee(datatokenAddress: string, address: string): Promise<PublishingMarketFee>;
 }
 export {};

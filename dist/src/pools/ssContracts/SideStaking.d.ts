@@ -6,7 +6,6 @@ import { Config } from '../../models';
 export declare class SideStaking {
     ssAbi: AbiItem | AbiItem[];
     web3: Web3;
-    GASLIMIT_DEFAULT: number;
     config: Config;
     constructor(web3: Web3, network?: string | number, ssAbi?: AbiItem | AbiItem[], config?: Config);
     private sideStakingContract;
