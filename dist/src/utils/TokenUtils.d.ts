@@ -64,3 +64,10 @@ export declare function allowance(web3: Web3, tokenAddress: string, account: str
  * @param {Config} config  configuration that provide values for web3 transaction gasFeeMultiplier, transactionBlockTimeout, transactionConfirmationBlocks, transactionPollingTimeout
  */
 export declare function balance(web3: Web3, tokenAddress: string, account: string, tokenDecimals?: number, config?: Config): Promise<string>;
+/**
+ * Get decimals for any erc20
+ * @param {Web3} web3
+ * @param {String} tokenAdress
+ * @return {Promise<number>} Number of decimals of the token
+ */
+export declare function decimals(web3: Web3, tokenAddress: string): Promise<number>;
