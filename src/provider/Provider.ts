@@ -435,7 +435,6 @@ export class Provider {
    * @param {Web3} web3
    * @param {AbortSignal} signal abort signal
    * @param {ComputeOutput} output
-   * @param {UserCustomParameters} userCustomParameters
    * @return {Promise<ComputeJob | ComputeJob[]>}
    */
   public async computeStart(
@@ -447,8 +446,7 @@ export class Provider {
     algorithm: ComputeAlgorithm,
     signal?: AbortSignal,
     additionalDatasets?: ComputeAsset[],
-    output?: ComputeOutput,
-    userCustomParameters?: UserCustomParameters
+    output?: ComputeOutput
   ): Promise<ComputeJob | ComputeJob[]> {
     const providerEndpoints = await this.getEndpoints(providerUri)
     const serviceEndpoints = await this.getServiceEndpoints(
@@ -477,9 +475,6 @@ export class Provider {
     payload.algorithm = algorithm
     if (payload.additionalDatasets) payload.additionalDatasets = additionalDatasets
     if (output) payload.output = output
-    if (userCustomParameters) payload.userdata = userCustomParameters
-    if (algorithm.algocustomdata) payload.algocustomdata = algorithm.algocustomdata
-    if (algorithm.userdata) payload.algouserdata = algorithm.userdata
     if (!computeStartUrl) return null
     try {
       const response = await fetch(computeStartUrl, {

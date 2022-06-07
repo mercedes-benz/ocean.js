@@ -102,10 +102,9 @@ export declare class Provider {
      * @param {Web3} web3
      * @param {AbortSignal} signal abort signal
      * @param {ComputeOutput} output
-     * @param {UserCustomParameters} userCustomParameters
      * @return {Promise<ComputeJob | ComputeJob[]>}
      */
-    computeStart(providerUri: string, web3: Web3, consumerAddress: string, computeEnv: string, dataset: ComputeAsset, algorithm: ComputeAlgorithm, signal?: AbortSignal, additionalDatasets?: ComputeAsset[], output?: ComputeOutput, userCustomParameters?: UserCustomParameters): Promise<ComputeJob | ComputeJob[]>;
+    computeStart(providerUri: string, web3: Web3, consumerAddress: string, computeEnv: string, dataset: ComputeAsset, algorithm: ComputeAlgorithm, signal?: AbortSignal, additionalDatasets?: ComputeAsset[], output?: ComputeOutput): Promise<ComputeJob | ComputeJob[]>;
     /** Instruct the provider to Stop the execution of a to stop a compute job.
      * @param {string} did
      * @param {string} consumerAddress
