@@ -164,20 +164,22 @@ export class Provider {
    * @param {number} serviceId the id of the service for which to check the files
    * @param {string} providerUri uri of the provider that will be used to check the file
    * @param {AbortSignal} signal abort signal
+   * @param {boolean} checksum if true, will return checksum of files content
    * @return {Promise<FileMetadata[]>} urlDetails
    */
   public async checkDidFiles(
     did: string,
     serviceId: number,
     providerUri: string,
-    signal?: AbortSignal
+    signal?: AbortSignal,
+    checksum: boolean = false
   ): Promise<FileMetadata[]> {
     const providerEndpoints = await this.getEndpoints(providerUri)
     const serviceEndpoints = await this.getServiceEndpoints(
       providerUri,
       providerEndpoints
     )
-    const args = { did: did, serviceId: serviceId }
+    const args = { did: did, serviceId: serviceId, checksum }
     const files: FileMetadata[] = []
     const path = this.getEndpointURL(serviceEndpoints, 'fileinfo')
       ? this.getEndpointURL(serviceEndpoints, 'fileinfo').urlPath
@@ -206,19 +208,21 @@ export class Provider {
    * @param {string} url or did
    * @param {string} providerUri uri of the provider that will be used to check the file
    * @param {AbortSignal} signal abort signal
+   * @param {boolean} checksum if true, will return checksum of files content
    * @return {Promise<FileMetadata[]>} urlDetails
    */
   public async checkFileUrl(
     url: string,
     providerUri: string,
-    signal?: AbortSignal
+    signal?: AbortSignal,
+    checksum: boolean = false
   ): Promise<FileMetadata[]> {
     const providerEndpoints = await this.getEndpoints(providerUri)
     const serviceEndpoints = await this.getServiceEndpoints(
       providerUri,
       providerEndpoints
     )
-    const args = { url: url, type: 'url' }
+    const args = { url: url, type: 'url', checksum }
     const files: FileMetadata[] = []
     const path = this.getEndpointURL(serviceEndpoints, 'fileinfo')
       ? this.getEndpointURL(serviceEndpoints, 'fileinfo').urlPath

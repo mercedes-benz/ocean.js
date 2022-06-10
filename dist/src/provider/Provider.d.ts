@@ -46,16 +46,18 @@ export declare class Provider {
      * @param {number} serviceId the id of the service for which to check the files
      * @param {string} providerUri uri of the provider that will be used to check the file
      * @param {AbortSignal} signal abort signal
+     * @param {boolean} checksum if true, will return checksum of files content
      * @return {Promise<FileMetadata[]>} urlDetails
      */
-    checkDidFiles(did: string, serviceId: number, providerUri: string, signal?: AbortSignal): Promise<FileMetadata[]>;
+    checkDidFiles(did: string, serviceId: number, providerUri: string, signal?: AbortSignal, checksum?: boolean): Promise<FileMetadata[]>;
     /** Get URL details (if possible)
      * @param {string} url or did
      * @param {string} providerUri uri of the provider that will be used to check the file
      * @param {AbortSignal} signal abort signal
+     * @param {boolean} checksum if true, will return checksum of files content
      * @return {Promise<FileMetadata[]>} urlDetails
      */
-    checkFileUrl(url: string, providerUri: string, signal?: AbortSignal): Promise<FileMetadata[]>;
+    checkFileUrl(url: string, providerUri: string, signal?: AbortSignal, checksum?: boolean): Promise<FileMetadata[]>;
     /** Get Compute Environments
      * @return {Promise<ComputeEnvironment[]>} urlDetails
      */
