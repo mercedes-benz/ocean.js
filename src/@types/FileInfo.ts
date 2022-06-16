@@ -1,4 +1,4 @@
-export interface FileMetadata {
+export interface FileInfo {
   /**
    * File URL.
    * @type {string}
@@ -41,4 +41,16 @@ export interface FileMetadata {
    * @type {boolean}
    */
   valid?: boolean
+
+  /**
+   * File checksum
+   * @type {string}
+   */
+  checksum?: string
+
+  /**
+   * File checksum method
+   * @type {string}
+   */
+  checksumType?: string
 }
