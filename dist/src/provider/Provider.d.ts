@@ -1,5 +1,5 @@
 import Web3 from 'web3';
-import { FileMetadata, ComputeJob, ComputeOutput, ComputeAlgorithm, ComputeAsset, ComputeEnvironment, ProviderInitialize, ProviderComputeInitializeResults } from '../@types/';
+import { FileInfo, ComputeJob, ComputeOutput, ComputeAlgorithm, ComputeAsset, ComputeEnvironment, ProviderInitialize, ProviderComputeInitializeResults } from '../@types/';
 export interface HttpCallback {
     (httpMethod: string, url: string, body: string, header: any): Promise<any>;
 }
@@ -47,17 +47,17 @@ export declare class Provider {
      * @param {string} providerUri uri of the provider that will be used to check the file
      * @param {AbortSignal} signal abort signal
      * @param {boolean} checksum if true, will return checksum of files content
-     * @return {Promise<FileMetadata[]>} urlDetails
+     * @return {Promise<FileInfo[]>} urlDetails
      */
-    checkDidFiles(did: string, serviceId: number, providerUri: string, signal?: AbortSignal, checksum?: boolean): Promise<FileMetadata[]>;
+    checkDidFiles(did: string, serviceId: number, providerUri: string, signal?: AbortSignal, checksum?: boolean): Promise<FileInfo[]>;
     /** Get URL details (if possible)
      * @param {string} url or did
      * @param {string} providerUri uri of the provider that will be used to check the file
      * @param {AbortSignal} signal abort signal
      * @param {boolean} checksum if true, will return checksum of files content
-     * @return {Promise<FileMetadata[]>} urlDetails
+     * @return {Promise<FileInfo[]>} urlDetails
      */
-    checkFileUrl(url: string, providerUri: string, signal?: AbortSignal, checksum?: boolean): Promise<FileMetadata[]>;
+    checkFileUrl(url: string, providerUri: string, signal?: AbortSignal, checksum?: boolean): Promise<FileInfo[]>;
     /** Get Compute Environments
      * @return {Promise<ComputeEnvironment[]>} urlDetails
      */

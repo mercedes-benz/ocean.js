@@ -25,6 +25,15 @@ export declare function estApprove(web3: Web3, account: string, tokenAddress: st
  */
 export declare function approve(web3: Web3, account: string, tokenAddress: string, spender: string, amount: string, force?: boolean, tokenDecimals?: number, config?: ContractConfig): Promise<TransactionReceipt | string>;
 /**
+ * Approve spender to spent amount tokens
+ * @param {String} account
+ * @param {String} tokenAddress
+ * @param {String} spender
+ * @param {String} amount amount of ERC20 tokens (always expressed as wei)
+ * @param {boolean} force  if true, will overwrite any previous allowence. Else, will check if allowence is enough and will not send a transaction if it's not needed
+ */
+export declare function approveWei(web3: Web3, account: string, tokenAddress: string, spender: string, amount: string, force?: boolean): Promise<TransactionReceipt | string>;
+/**
  * Estimate gas cost for transfer function
  * @param {String} account
  * @param {String} tokenAddress
@@ -54,6 +63,14 @@ export declare function transfer(web3: Web3, account: string, tokenAddress: stri
  * @param {Config} config  configuration that provide values for web3 transaction gasFeeMultiplier, transactionBlockTimeout, transactionConfirmationBlocks, transactionPollingTimeout
  */
 export declare function allowance(web3: Web3, tokenAddress: string, account: string, spender: string, tokenDecimals?: number, config?: ContractConfig): Promise<string>;
+/**
+ * Get Allowance for any erc20
+ * @param {Web3} web3
+ * @param {String } tokenAdress
+ * @param {String} account
+ * @param {String} spender
+ */
+export declare function allowanceWei(web3: Web3, tokenAddress: string, account: string, spender: string, tokenDecimals?: number): Promise<string>;
 /**
  * Get balance for any erc20
  * @param {Web3} web3
