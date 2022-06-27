@@ -1101,7 +1101,7 @@ export class Datatoken {
       this.config
     )
     try {
-      const freContractParams = getFreOrderParams(freParams)
+      const freContractParams = await getFreOrderParams(this.web3, freParams)
 
       const estGas = await estimateGas(
         address,
