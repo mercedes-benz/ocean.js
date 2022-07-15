@@ -1030,9 +1030,22 @@ export class Datatoken {
     orderTxId: string,
     providerFees: ProviderFees
   ): Promise<TransactionReceipt> {
+    console.log('config: ', this.config)
     const dtContract = setContractDefaults(
       new this.web3.eth.Contract(this.datatokensAbi, dtAddress),
       this.config
+    )
+    console.log(
+      'dispenser transactionBlockTimeout : ',
+      dtContract.transactionBlockTimeout
+    )
+    console.log(
+      'dispenser transactionConfirmationBlocks : ',
+      dtContract.transactionConfirmationBlocks
+    )
+    console.log(
+      'dispenser transactionPollingTimeout : ',
+      dtContract.transactionPollingTimeout
     )
     try {
       const estGas = await estimateGas(
