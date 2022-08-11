@@ -57,7 +57,7 @@ export declare class Provider {
      * @param {boolean} checksum if true, will return checksum of files content
      * @return {Promise<FileInfo[]>} urlDetails
      */
-    checkFileUrl(url: string, providerUri: string, signal?: AbortSignal, checksum?: boolean): Promise<FileInfo[]>;
+    checkFileUrl(url: string, providerUri: string, signal?: AbortSignal, headers?: any, checksum?: boolean): Promise<FileInfo[]>;
     /** Get Compute Environments
      * @return {Promise<ComputeEnvironment[]>} urlDetails
      */

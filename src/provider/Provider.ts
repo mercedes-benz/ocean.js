@@ -215,6 +215,7 @@ export class Provider {
     url: string,
     providerUri: string,
     signal?: AbortSignal,
+    headers?: any,
     checksum: boolean = false
   ): Promise<FileInfo[]> {
     const providerEndpoints = await this.getEndpoints(providerUri)
@@ -222,7 +223,7 @@ export class Provider {
       providerUri,
       providerEndpoints
     )
-    const args = { url: url, type: 'url', checksum }
+    const args = { url: url, type: 'url', checksum, headers }
     const files: FileInfo[] = []
     const path = this.getEndpointURL(serviceEndpoints, 'fileinfo')
       ? this.getEndpointURL(serviceEndpoints, 'fileinfo').urlPath
