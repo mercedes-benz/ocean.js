@@ -61,12 +61,25 @@ export function getErcCreationParams(ercParams: Erc20CreateParams): any {
   }
 }
 
-export function getFreOrderParams(freParams: FreOrderParams): any {
+export async function getFreOrderParams(
+  web3: Web3,
+  freParams: FreOrderParams
+): Promise<any> {
   return {
     exchangeContract: freParams.exchangeContract,
     exchangeId: freParams.exchangeId,
-    maxBaseTokenAmount: Web3.utils.toWei(freParams.maxBaseTokenAmount),
-    swapMarketFee: Web3.utils.toWei(freParams.swapMarketFee),
+    maxBaseTokenAmount: await amountToUnits(
+      web3,
+      freParams.baseTokenAddress,
+      freParams.maxBaseTokenAmount,
+      freParams.baseTokenDecimals
+    ),
+    swapMarketFee: await amountToUnits(
+      web3,
+      freParams.baseTokenAddress,
+      freParams.swapMarketFee,
+      freParams.baseTokenDecimals
+    ),
     marketFeeAddress: freParams.marketFeeAddress
   }
 }
@@ -165,8 +178,7 @@ export async function amountToUnits(
     const amountFormatted = new BigNumber(amount).times(
       new BigNumber(10).exponentiatedBy(decimals)
     )
-
-    return amountFormatted.toString()
+    return amountFormatted.toFixed(0)
   } catch (e) {
     LoggerInstance.error(`ERROR: FAILED TO CALL DECIMALS(), USING 18', ${e.message}`)
   }

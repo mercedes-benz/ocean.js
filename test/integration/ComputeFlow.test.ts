@@ -91,7 +91,7 @@ const ddoWithNoTimeout = {
       type: 'compute',
       files: '',
       datatokenAddress: '0xa15024b732A8f2146423D14209eFd074e61964F3',
-      serviceEndpoint: 'https://providerv4.rinkeby.oceanprotocol.com',
+      serviceEndpoint: 'https://v4.provider.rinkeby.oceanprotocol.com',
       timeout: 0,
       compute: {
         publisherTrustedAlgorithmPublishers: [],
@@ -128,7 +128,7 @@ const ddoWith1mTimeout = {
       type: 'compute',
       files: '',
       datatokenAddress: '0xa15024b732A8f2146423D14209eFd074e61964F3',
-      serviceEndpoint: 'https://providerv4.rinkeby.oceanprotocol.com',
+      serviceEndpoint: 'https://v4.provider.rinkeby.oceanprotocol.com',
       timeout: 60,
       compute: {
         publisherTrustedAlgorithmPublishers: [],
@@ -175,7 +175,8 @@ const algoDdoWithNoTimeout = {
         entrypoint: 'node $ALGO',
         image: 'ubuntu',
         tag: 'latest',
-        checksum: '44e10daa6637893f4276bb8d7301eb35306ece50f61ca34dcab550'
+        checksum:
+          'sha256:42ba2dfce475de1113d55602d40af18415897167d47c2045ec7b6d9746ff148f'
       }
     }
   },
@@ -185,7 +186,7 @@ const algoDdoWithNoTimeout = {
       type: 'access',
       files: '',
       datatokenAddress: '0xa15024b732A8f2146423D14209eFd074e61964F3',
-      serviceEndpoint: 'https://providerv4.rinkeby.oceanprotocol.com',
+      serviceEndpoint: 'https://v4.provider.rinkeby.oceanprotocol.com',
       timeout: 0
     }
   ]
@@ -216,7 +217,8 @@ const algoDdoWith1mTimeout = {
         entrypoint: 'node $ALGO',
         image: 'ubuntu',
         tag: 'latest',
-        checksum: '44e10daa6637893f4276bb8d7301eb35306ece50f61ca34dcab550'
+        checksum:
+          'sha256:42ba2dfce475de1113d55602d40af18415897167d47c2045ec7b6d9746ff148f'
       }
     }
   },
@@ -226,7 +228,7 @@ const algoDdoWith1mTimeout = {
       type: 'access',
       files: '',
       datatokenAddress: '0xa15024b732A8f2146423D14209eFd074e61964F3',
-      serviceEndpoint: 'https://providerv4.rinkeby.oceanprotocol.com',
+      serviceEndpoint: 'https://v4.provider.rinkeby.oceanprotocol.com',
       timeout: 60
     }
   ]
