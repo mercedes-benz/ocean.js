@@ -84,7 +84,7 @@
     "eslint": "^7.17.0",
     "eslint-config-oceanprotocol": "^1.5.0",
     "eslint-config-prettier": "^8.5.0",
-    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-prettier": "^4.2.1",
     "fs": "0.0.1-security",
     "microbundle": "^0.15.0",
     "mocha": "^9.2.2",
