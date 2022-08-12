@@ -5,7 +5,7 @@ import { ContractConfig } from '../models';
 export declare function setContractDefaults(contract: Contract, config: ContractConfig): Contract;
 export declare function getFairGasPrice(web3: Web3, config: ContractConfig): Promise<string>;
 export declare function getErcCreationParams(ercParams: Erc20CreateParams): any;
-export declare function getFreOrderParams(freParams: FreOrderParams): any;
+export declare function getFreOrderParams(web3: Web3, freParams: FreOrderParams): Promise<any>;
 export declare function getFreCreationParams(freParams: FreCreationParams): any;
 export declare function getPoolCreationParams(web3: Web3, poolParams: PoolCreationParams): Promise<any>;
 export declare function unitsToAmount(web3: Web3, token: string, amount: string, tokenDecimals?: number): Promise<string>;

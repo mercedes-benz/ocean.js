@@ -49,7 +49,7 @@ export declare class Provider {
      * @param {boolean} checksum if true, will return checksum of files content
      * @return {Promise<FileInfo[]>} urlDetails
      */
-    checkDidFiles(did: string, serviceId: number, providerUri: string, signal?: AbortSignal, checksum?: boolean): Promise<FileInfo[]>;
+    checkDidFiles(did: string, serviceId: string, providerUri: string, withChecksum?: boolean, signal?: AbortSignal): Promise<FileInfo[]>;
     /** Get URL details (if possible)
      * @param {string} url or did
      * @param {string} providerUri uri of the provider that will be used to check the file

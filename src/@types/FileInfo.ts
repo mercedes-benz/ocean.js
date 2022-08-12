@@ -49,12 +49,6 @@ export interface FileInfo {
   valid?: boolean
 
   /**
-   * File checksum
-   * @type {string}
-   */
-  checksum?: string
-
-  /**
    * File checksum method
    * @type {string}
    */

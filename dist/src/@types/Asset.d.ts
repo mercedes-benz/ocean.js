@@ -107,7 +107,7 @@ export interface Asset extends DDO {
          * How often an asset was consumed, meaning how often it was either downloaded or used as part of a compute job.
          * @type {string}
          */
-        consume: number;
+        orders: number;
     };
     /**
      * Contains information about an asset's purgatory status defined in

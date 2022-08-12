@@ -1,4 +1,13 @@
 import { Asset, DDO, ValidateMetadata } from '../@types/';
+export interface SearchQuery {
+    from?: number;
+    size?: number;
+    query: any;
+    sort?: {
+        [jsonPath: string]: string;
+    };
+    aggs?: any;
+}
 export declare class Aquarius {
     aquariusURL: any;
     /**
@@ -28,5 +37,19 @@ export declare class Aquarius {
      * @return {Promise<ValidateMetadata>}.
      */
     validate(ddo: DDO, signal?: AbortSignal): Promise<ValidateMetadata>;
+    /**
+     * Search over the DDOs using a query.
+     * @param {string} did DID of the asset
+     * @param {AbortSignal} signal abort signal
+     * @return {Promise<QueryResult>}
+     */
+    getAssetMetadata(did: string, signal?: AbortSignal): Promise<any>;
+    /**
+     * Search over the DDOs using a query.
+     * @param  {SearchQuery} query Query to filter the DDOs.
+     * @param {AbortSignal} signal abort signal
+     * @return {Promise<QueryResult>}
+     */
+    querySearch(query: SearchQuery, signal?: AbortSignal): Promise<any>;
 }
 export default Aquarius;

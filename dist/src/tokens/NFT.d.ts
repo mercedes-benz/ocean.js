@@ -316,6 +316,16 @@ export declare class Nft {
      * @return {Promise<TransactionReceipt>} transaction receipt
      */
     setTokenURI(nftAddress: string, address: string, data: string): Promise<any>;
+    /** setData
+     * This function allows to store data with a preset key (keccak256(ERC20Address)) into NFT 725 Store
+     * only ERC20Deployer can succeed
+     * @param nftAddress erc721 contract adress
+     * @param address user adress
+     * @param key Key of the data to be stored into 725Y standard
+     * @param value Data to be stored into 725Y standard
+     * @return {Promise<TransactionReceipt>} transactionId
+     */
+    setData(nftAddress: string, address: string, key: string, value: string): Promise<TransactionReceipt>;
     /** Get Owner
      * @param {String} nftAddress erc721 contract adress
      * @return {Promise<string>} string
