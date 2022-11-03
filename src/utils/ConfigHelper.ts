@@ -2,6 +2,8 @@ import Config from '../models/Config'
 // eslint-disable-next-line import/no-named-default
 import { default as DefaultContractsAddresses } from '@oceanprotocol/contracts/addresses/address.json'
 import LoggerInstance from './Logger'
+// eslint-disable-next-line import/no-named-default
+import { default as CustomContractAddressess } from '../../address.json'
 
 const configHelperNetworksBase: Config = {
   chainId: null,
@@ -147,6 +149,16 @@ export const configHelperNetworks: Config[] = [
     subgraphUri: 'https://v4.subgraph.moonriver.oceanprotocol.com',
     explorerUri: 'https://moonriver.moonscan.io/',
     gasFeeMultiplier: 1.05
+  },
+  {
+    ...configHelperNetworksBase,
+    chainId: 81001,
+    network: 'supernetTestnet',
+    nodeUri: 'https://rpc-edgenet.polygon.technology',
+    providerUri: 'https://v4.provider.goerli.oceanprotocol.com',
+    subgraphUri: 'https://v4.subgraph.goerli.oceanprotocol.com',
+    explorerUri: 'https://explorer-edgenet.polygon.technology/',
+    gasFeeMultiplier: 1.05
   }
 ]
 
@@ -178,8 +190,8 @@ export class ConfigHelper {
           fixedRateExchangeAddress: FixedPrice,
           dispenserAddress: Dispenser,
           oceanTokenAddress: Ocean,
-          chainId: chainId,
-          startBlock: startBlock,
+          chainId,
+          startBlock,
           ...(process.env.AQUARIUS_URI && { metadataCacheUri: process.env.AQUARIUS_URI })
         }
       } catch (e) {
@@ -208,8 +220,8 @@ export class ConfigHelper {
           fixedRateExchangeAddress: FixedPrice,
           dispenserAddress: Dispenser,
           oceanTokenAddress: Ocean,
-          chainId: chainId,
-          startBlock: startBlock,
+          chainId,
+          startBlock,
           ...(process.env.AQUARIUS_URI && { metadataCacheUri: process.env.AQUARIUS_URI })
         }
       }
@@ -226,7 +238,10 @@ export class ConfigHelper {
       return null
     }
 
-    const contractAddressesConfig = this.getAddressesFromEnv(config.network)
+    const contractAddressesConfig = this.getAddressesFromEnv(
+      config.network,
+      CustomContractAddressess
+    )
     config = { ...config, ...contractAddressesConfig }
 
     const nodeUri = infuraProjectId
