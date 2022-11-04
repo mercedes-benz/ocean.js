@@ -153,7 +153,7 @@ export const configHelperNetworks: Config[] = [
   {
     ...configHelperNetworksBase,
     chainId: 81001,
-    network: 'supernetTestnet',
+    network: 'polygonedge',
     nodeUri: 'https://rpc-edgenet.polygon.technology',
     providerUri: 'https://v4.provider.goerli.oceanprotocol.com',
     subgraphUri: 'https://v4.subgraph.goerli.oceanprotocol.com',
@@ -232,10 +232,8 @@ export class ConfigHelper {
   public getConfig(network: string | number, infuraProjectId?: string): Config {
     const filterBy = typeof network === 'string' ? 'network' : 'chainId'
     LoggerInstance.log('network : ', filterBy, network)
-    LoggerInstance.log('network configHelperNetworks : ', configHelperNetworks)
     let config = configHelperNetworks.find((c) => c[filterBy] === network)
     LoggerInstance.log('network config : ', config)
-    LoggerInstance.log('network CustomContractAddressess : ', CustomContractAddressess)
 
     if (!config) {
       LoggerInstance.error(`No config found for given network '${network}'`)
