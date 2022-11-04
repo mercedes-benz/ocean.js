@@ -231,7 +231,11 @@ export class ConfigHelper {
 
   public getConfig(network: string | number, infuraProjectId?: string): Config {
     const filterBy = typeof network === 'string' ? 'network' : 'chainId'
+    console.log('network : ', filterBy, network)
+    console.log('network configHelperNetworks : ', configHelperNetworks)
     let config = configHelperNetworks.find((c) => c[filterBy] === network)
+    console.log('network config : ', config)
+    console.log('network CustomContractAddressess : ', CustomContractAddressess)
 
     if (!config) {
       LoggerInstance.error(`No config found for given network '${network}'`)
