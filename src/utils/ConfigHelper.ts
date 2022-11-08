@@ -167,8 +167,6 @@ export class ConfigHelper {
   public getAddressesFromEnv(network: string, customAddresses?: any): Partial<Config> {
     // use the defaults first
     let configAddresses: Partial<Config>
-    LoggerInstance.log('oceanjs network: ', network)
-    LoggerInstance.log('oceanjs customAddresses: ', customAddresses)
 
     // load from custom addresses structure
     if (customAddresses) {
@@ -184,22 +182,6 @@ export class ConfigHelper {
           chainId,
           startBlock
         } = customAddresses[network]
-        LoggerInstance.log(
-          'oceanjs customAddresses polyognedge: ',
-          customAddresses[network]
-        )
-        LoggerInstance.log(
-          'oceanjs customAddresses attr polyognedge: ',
-          FixedPrice,
-          Dispenser,
-          Staking,
-          poolTemplate,
-          ERC721Factory,
-          OPFCommunityFeeCollector,
-          Ocean,
-          chainId,
-          startBlock
-        )
         configAddresses = {
           erc721FactoryAddress: ERC721Factory,
           sideStakingAddress: Staking,
@@ -249,9 +231,7 @@ export class ConfigHelper {
 
   public getConfig(network: string | number, infuraProjectId?: string): Config {
     const filterBy = typeof network === 'string' ? 'network' : 'chainId'
-    LoggerInstance.log('network : ', filterBy, network)
     let config = configHelperNetworks.find((c) => c[filterBy] === network)
-    LoggerInstance.log('network config : ', config)
 
     if (!config) {
       LoggerInstance.error(`No config found for given network '${network}'`)
@@ -263,8 +243,6 @@ export class ConfigHelper {
       CustomContractAddressess
     )
     config = { ...config, ...contractAddressesConfig }
-    LoggerInstance.log('oceanjs contractAddressesConfig : ', contractAddressesConfig)
-    LoggerInstance.log('oceanjs final config : ', config)
 
     const nodeUri = infuraProjectId
       ? `${config.nodeUri}/${infuraProjectId}`
